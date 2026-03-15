@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            text-align: center;
+        }
+        .clock {
+            font-size: 60px;
+        }
+        .timezone {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+    <div class="timezone">
+        <div>UTC: <span id="utc"></span></div>
+        <div>EST: <span id="est"></span></div>
+        <div>PST: <span id="pst"></span></div>
+        <div>CST: <span id="cst"></span></div>
+    </div>
+    <script>
+        function updateClock() {
+            let now = new Date();
+            let utc = now.toUTCString().slice(17, 25);
+            let est = new Date(now.getTime() - (5 * 60 * 60 * 1000)).toUTCString().slice(17, 25);
+            let pst = new Date(now.getTime() - (8 * 60 * 60 * 1000)).toUTCString().slice(17, 25);
+            let cst = new Date(now.getTime() - (6 * 60 * 60 * 1000)).toUTCString().slice(17, 25);
+            document.getElementById('utc').innerText = utc;
+            document.getElementById('est').innerText = est;
+            document.getElementById('pst').innerText = pst;
+            document.getElementById('cst').innerText = cst;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
